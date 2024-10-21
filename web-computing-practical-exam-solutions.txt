@@ -1,0 +1,481 @@
+# Web Computing Practical Exam Solutions
+
+## Q1. Asynchronous file reading in Node.js
+
+```javascript
+const fs = require('fs');
+
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading file:', err);
+    return;
+  }
+  console.log('File contents:', data);
+});
+
+console.log('This will be printed before the file is read');
+```
+
+## Q2. React JSX example
+
+```jsx
+import React from 'react';
+
+const Greeting = () => {
+  return (
+    <div>
+      <h1>Hello! Welcome to React</h1>
+    </div>
+  );
+};
+
+export default Greeting;
+```
+
+## Q3. JavaScript to check if a number is even
+
+```javascript
+function isEven() {
+  const number = parseInt(prompt("Enter a number:"));
+  if (isNaN(number)) {
+    alert("Please enter a valid number.");
+  } else {
+    const result = number % 2 === 0 ? "even" : "odd";
+    alert(`The number ${number} is ${result}.`);
+  }
+}
+
+isEven();
+```
+
+## Q4. Create a text file with user input
+
+```javascript
+const fs = require('fs');
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Enter the text you want to save: ', (userInput) => {
+  fs.writeFile('user_input.txt', userInput, (err) => {
+    if (err) {
+      console.error('Error writing file:', err);
+    } else {
+      console.log('File has been saved successfully.');
+    }
+    rl.close();
+  });
+});
+```
+
+## Q5. React Hook useState for click counter
+
+```jsx
+import React, { useState } from 'react';
+
+const ClickCounter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>CLICK</button>
+      <p>Button clicked {count} times</p>
+    </div>
+  );
+};
+
+export default ClickCounter;
+```
+
+## Q6. Class component with constructor to update state
+
+```jsx
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  incrementCount = () => {
+    this.setState(prevState => ({
+      count: prevState.count + 1
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Count: {this.state.count}</h1>
+        <button onClick={this.incrementCount}>Increment</button>
+        <p>Initial value: {this.props.initialValue}</p>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+```
+
+## Q7. Class component without constructor to update state
+
+```jsx
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  state = {
+    count: 0
+  };
+
+  incrementCount = () => {
+    this.setState(prevState => ({
+      count: prevState.count + 1
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Count: {this.state.count}</h1>
+        <button onClick={this.incrementCount}>Increment</button>
+        <p>Initial value: {this.props.initialValue}</p>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+```
+
+## Q8 & Q9. Functional component to update state and props
+
+```jsx
+import React, { useState } from 'react';
+
+const Counter = ({ initialValue }) => {
+  const [count, setCount] = useState(initialValue);
+
+  const incrementCount = () => {
+    setCount(prevCount => prevCount + 1);
+  };
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={incrementCount}>Increment</button>
+      <p>Initial value: {initialValue}</p>
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+## Q10 & Q11. React JSX example (same as Q2)
+
+(See Q2 for code)
+
+## Q12. Create "Car" class component
+
+```jsx
+// Car.js
+import React, { Component } from 'react';
+
+class Car extends Component {
+  render() {
+    return <h2>I am a Car!</h2>;
+  }
+}
+
+export default Car;
+
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Car from './Car';
+
+ReactDOM.render(<Car />, document.getElementById('root'));
+```
+
+## Q13. React Hooks with color buttons
+
+```jsx
+import React, { useState } from 'react';
+
+const ColorButtons = () => {
+  const [selectedColor, setSelectedColor] = useState('');
+
+  const colors = ['Red', 'Blue', 'Green', 'Yellow'];
+
+  return (
+    <div>
+      {colors.map(color => (
+        <button key={color} onClick={() => setSelectedColor(color)}>
+          {color}
+        </button>
+      ))}
+      {selectedColor && <p>You have selected {selectedColor}</p>}
+    </div>
+  );
+};
+
+export default ColorButtons;
+```
+
+## Q14. JavaScript digital clock
+
+```javascript
+function updateClock() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+  const timeString = `${hours}:${minutes}:${seconds}`;
+  document.getElementById('clock').textContent = timeString;
+}
+
+setInterval(updateClock, 1000);
+updateClock(); // Initial call to display clock immediately
+```
+
+## Q15. JavaScript color change with radio buttons
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color Changer</title>
+</head>
+<body>
+  <form>
+    <input type="radio" name="color" value="red" onclick="changeColor('red')"> Red
+    <input type="radio" name="color" value="blue" onclick="changeColor('blue')"> Blue
+    <input type="radio" name="color" value="green" onclick="changeColor('green')"> Green
+  </form>
+
+  <script>
+    function changeColor(color) {
+      document.body.style.backgroundColor = color;
+    }
+  </script>
+</body>
+</html>
+```
+
+## Q16. Moving image across screen
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moving Image</title>
+  <style>
+    #movingImage {
+      position: absolute;
+      left: 0;
+      top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <img id="movingImage" src="path_to_your_image.jpg" alt="Moving Image" width="50" height="50">
+
+  <script>
+    const img = document.getElementById('movingImage');
+    let position = 0;
+
+    function moveImage() {
+      position += 2;
+      if (position > window.innerWidth) {
+        position = -50; // Reset to left of screen
+      }
+      img.style.left = position + 'px';
+      requestAnimationFrame(moveImage);
+    }
+
+    moveImage();
+  </script>
+</body>
+</html>
+```
+
+## Q17. Change background color with buttons
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color Changer</title>
+</head>
+<body>
+  <button onclick="changeColor('red')">RED</button>
+  <button onclick="changeColor('green')">GREEN</button>
+
+  <script>
+    function changeColor(color) {
+      document.body.style.backgroundColor = color;
+    }
+  </script>
+</body>
+</html>
+```
+
+## Q18. Set a cookie in JavaScript
+
+```javascript
+function setCookie(name, value, days) {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+// Usage example
+setCookie("username", "John Doe", 7);
+```
+
+## Q19. Check if a number is even (same as Q3)
+
+(See Q3 for code)
+
+## Q20. Display sum of two numbers using pop-up box
+
+```javascript
+function sumNumbers() {
+  const num1 = parseFloat(prompt("Enter the first number:"));
+  const num2 = parseFloat(prompt("Enter the second number:"));
+  
+  if (isNaN(num1) || isNaN(num2)) {
+    alert("Please enter valid numbers.");
+  } else {
+    const sum = num1 + num2;
+    alert(`The sum of ${num1} and ${num2} is ${sum}`);
+  }
+}
+
+sumNumbers();
+```
+
+## Q21. Change background color every 2 seconds
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color Changer</title>
+</head>
+<body>
+  <script>
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function changeBackgroundColor() {
+      document.body.style.backgroundColor = getRandomColor();
+    }
+
+    setInterval(changeBackgroundColor, 2000);
+  </script>
+</body>
+</html>
+```
+
+## Q22. Alumni information form with validation
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alumni Information Form</title>
+</head>
+<body>
+    <h2>Alumni Information Form</h2>
+    <form id="alumniForm" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br><br>
+
+        <label>Hobbies:</label><br>
+        <input type="checkbox" id="reading" name="hobby" value="reading">
+        <label for="reading">Reading</label>
+        <input type="checkbox" id="sports" name="hobby" value="sports">
+        <label for="sports">Sports</label>
+        <input type="checkbox" id="music" name="hobby" value="music">
+        <label for="music">Music</label><br><br>
+
+        <label>Branch:</label><br>
+        <input type="radio" id="cs" name="branch" value="cs" required>
+        <label for="cs">Computer Science</label>
+        <input type="radio" id="ee" name="branch" value="ee">
+        <label for="ee">Electrical Engineering</label>
+        <input type="radio" id="me" name="branch" value="me">
+        <label for="me">Mechanical Engineering</label><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const dob = new Date(document.getElementById('dob').value);
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Check if all fields are filled
+            if (!name || !dob || !email || !password) {
+                alert('Please fill all the fields');
+                return false;
+            }
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+
+            // Validate age
+            const today = new Date();
+            const age = today.getFullYear() - dob.getFullYear();
+            if (age < 22) {
+                alert('You must be at least 22 years old');
+                return false;
+            }
+
+            // Validate password length
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
+```
+
+Note: Questions 23-26 involve configuring network settings in Cisco Packet Tracer, which requires a graphical interface and cannot be represented with code alone.
